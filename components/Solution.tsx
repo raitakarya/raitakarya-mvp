@@ -8,10 +8,10 @@ interface SpotlightCardProps {
   spotlightColor?: string;
 }
 
-const SpotlightCard: React.FC<SpotlightCardProps> = ({ 
-  children, 
-  className = "", 
-  spotlightColor = "rgba(33, 142, 141, 0.15)" 
+const SpotlightCard: React.FC<SpotlightCardProps> = ({
+  children,
+  className = "",
+  spotlightColor = "rgba(33, 142, 141, 0.15)"
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -90,15 +90,15 @@ export const Solution = () => {
 
   return (
     <section id="solution" className="py-32 bg-raitha-cream relative overflow-hidden">
-      
+
       {/* Decorative Floating Glass Elements */}
       <div className="absolute top-20 left-[5%] w-32 h-32 rounded-3xl bg-gradient-to-br from-white/60 to-white/10 border border-white/40 backdrop-blur-xl shadow-lg rotate-12 animate-float pointer-events-none z-0" />
       <div className="absolute bottom-40 right-[2%] w-40 h-40 rounded-full bg-gradient-to-bl from-raitha-teal/10 to-white/20 border border-white/30 backdrop-blur-xl shadow-lg animate-float-delayed pointer-events-none z-0" />
       <div className="absolute top-1/3 right-[15%] w-20 h-20 rounded-xl bg-gradient-to-tr from-raitha-sky/10 to-white/10 border border-white/20 backdrop-blur-md rotate-45 animate-float pointer-events-none z-0 opacity-70" />
       <div className="absolute bottom-10 left-[20%] w-24 h-24 rounded-full bg-gradient-to-br from-raitha-orange/10 to-white/10 border border-white/20 backdrop-blur-md animate-float-delayed pointer-events-none z-0 opacity-70" />
-      
+
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
-        
+
         <div className="text-center mb-20">
           <span className="text-raitha-teal font-bold tracking-[0.2em] text-xs uppercase mb-4 block">The Solution</span>
           <h2 className="text-4xl md:text-6xl font-bold text-raitha-charcoal mb-6 tracking-tight">
@@ -106,7 +106,7 @@ export const Solution = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-raitha-teal to-raitha-sky">Complete Transformation.</span>
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Raithakarya eliminates middlemen, connects farmers directly with workers through intelligent matching, transparent pricing, and instant payments.
+            Raitakarya eliminates middlemen, connects farmers directly with workers through intelligent matching, transparent pricing, and instant payments.
           </p>
         </div>
 

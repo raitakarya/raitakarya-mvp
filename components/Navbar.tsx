@@ -29,27 +29,25 @@ export const Navbar = () => {
 
   return (
     <>
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ${
-          isScrolled ? 'pt-4' : 'pt-6'
-        }`}
-      >
-        <div 
-          className={`relative flex items-center justify-between transition-all duration-500 ${
-            isScrolled 
-              ? 'w-[90%] max-w-[1200px] h-16 px-6 rounded-full bg-raitha-cream/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.04)]' 
-              : 'w-full max-w-[1440px] h-20 px-8 bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ${isScrolled ? 'pt-4' : 'pt-6'
           }`}
+      >
+        <div
+          className={`relative flex items-center justify-between transition-all duration-500 ${isScrolled
+              ? 'w-[90%] max-w-[1200px] h-16 px-6 rounded-full bg-raitha-cream/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.04)]'
+              : 'w-full max-w-[1440px] h-20 px-8 bg-transparent'
+            }`}
         >
           {/* Logo */}
           <div className="flex items-center gap-3 group cursor-pointer">
-             <Logo variant={isScrolled ? 'color' : 'white'} className="h-8" />
-             <span className={`font-sans font-bold text-xl tracking-tight transition-colors duration-300 ${isScrolled ? 'text-raitha-charcoal' : 'text-white'}`}>
-               Raithakarya
-             </span>
+            <Logo variant={isScrolled ? 'color' : 'white'} className="h-8" />
+            <span className={`font-sans font-bold text-xl tracking-tight transition-colors duration-300 ${isScrolled ? 'text-raitha-charcoal' : 'text-white'}`}>
+              Raitakarya
+            </span>
           </div>
 
           {/* Desktop Nav */}
@@ -84,7 +82,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Toggle */}
-          <button 
+          <button
             className={`lg:hidden p-2 rounded-full transition-colors ${isScrolled ? 'text-raitha-charcoal hover:bg-raitha-teal/10' : 'text-white hover:bg-white/10'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
@@ -113,13 +111,13 @@ export const Navbar = () => {
               <div className="flex justify-between items-center mb-12">
                 <div className="flex items-center gap-2">
                   <Logo variant="color" className="h-6" />
-                  <span className="font-bold text-lg text-raitha-charcoal">Raithakarya</span>
+                  <span className="font-bold text-lg text-raitha-charcoal">Raitakarya</span>
                 </div>
                 <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
                   <X size={20} className="text-raitha-charcoal" />
                 </button>
               </div>
-              
+
               <div className="flex flex-col gap-6">
                 {navLinks.map((link, i) => (
                   <motion.a

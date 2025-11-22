@@ -10,19 +10,19 @@ export const Footer = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <Logo variant="white" className="h-8" />
-              <span className="text-xl font-bold">Raithakarya</span>
+              <span className="text-xl font-bold">Raitakarya</span>
             </div>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">Khet se Khushhaali.<br />Transforming India's agricultural labor market through technology and trust.</p>
             <div className="flex gap-4 text-gray-400">
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-raitha-teal hover:text-white transition-all cursor-pointer">
+              <a href="https://twitter.com/raitakarya" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-raitha-teal hover:text-white transition-all cursor-pointer">
                 <Twitter size={18} />
-              </div>
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-raitha-teal hover:text-white transition-all cursor-pointer">
+              </a>
+              <a href="https://linkedin.com/company/raitakarya" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-raitha-teal hover:text-white transition-all cursor-pointer">
                 <Linkedin size={18} />
-              </div>
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-raitha-teal hover:text-white transition-all cursor-pointer">
+              </a>
+              <a href="https://instagram.com/raitakarya" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-raitha-teal hover:text-white transition-all cursor-pointer">
                 <Instagram size={18} />
-              </div>
+              </a>
             </div>
           </div>
 
@@ -58,14 +58,14 @@ export const Footer = () => {
 
           <div className="lg:col-span-1 bg-white/5 p-6 rounded-2xl border border-white/10">
             <h4 className="font-bold mb-4 text-raitha-teal">Get in Touch</h4>
-            <p className="text-sm text-gray-400 mb-2">raithakarya@gmail.com</p>
+            <p className="text-sm text-gray-400 mb-2">raitakarya@gmail.com</p>
             <p className="text-sm text-gray-400 mb-2">+91-9880973453</p>
             <p className="text-xs text-gray-500 mt-4">Bangalore, India</p>
           </div>
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© 2025 Raithakarya. All rights reserved.</p>
+          <p>© 2025 Raitakarya. All rights reserved.</p>
           <div className="flex items-center gap-2">
             <span>Made with</span>
             <span className="text-red-500">❤️</span>
