@@ -1,0 +1,64 @@
+.
+|-- backend
+|   |-- prisma
+|   |   `-- schema.prisma
+|   |-- src
+|   |   |-- controllers
+|   |   |   |-- application.controller.ts
+|   |   |   |-- auth.controller.ts
+|   |   |   |-- job.controller.ts
+|   |   |   |-- payment.controller.ts
+|   |   |   |-- rating.controller.ts
+|   |   |   `-- user.controller.ts
+|   |   |-- middleware
+|   |   |   `-- auth.middleware.ts
+|   |   |-- routes
+|   |   |   |-- application.routes.ts
+|   |   |   |-- auth.routes.ts
+|   |   |   |-- job.routes.ts
+|   |   |   |-- payment.routes.ts
+|   |   |   |-- rating.routes.ts
+|   |   |   `-- user.routes.ts
+|   |   |-- utils
+|   |   |   |-- jwt.ts
+|   |   |   |-- password.ts
+|   |   |   `-- prisma.ts
+|   |   `-- server.ts
+|   |-- package.json
+|   `-- tsconfig.json
+|-- docs
+|-- frontend
+|   |-- src
+|   |   |-- api
+|   |   |   |-- client.ts
+|   |   |   `-- index.ts
+|   |   |-- pages
+|   |   |   |-- FarmerDashboard.tsx
+|   |   |   |-- JobDetails.tsx
+|   |   |   |-- Landing.tsx
+|   |   |   |-- Login.tsx
+|   |   |   |-- Profile.tsx
+|   |   |   |-- Signup.tsx
+|   |   |   `-- WorkerDashboard.tsx
+|   |   |-- store
+|   |   |   `-- authStore.ts
+|   |   |-- types
+|   |   |   `-- index.ts
+|   |   |-- App.tsx
+|   |   |-- index.css
+|   |   `-- main.tsx
+|   |-- index.html
+|   |-- package.json
+|   |-- postcss.config.js
+|   |-- tailwind.config.js
+|   |-- tsconfig.json
+|   |-- tsconfig.node.json
+|   `-- vite.config.ts
+|-- COMPLETION_SUMMARY.md
+|-- DIRECTORY_TREE.txt
+|-- PROJECT_STRUCTURE.md
+|-- QUICKSTART.md
+|-- README.md
+`-- SETUP.md
+
+15 directories, 47 files
