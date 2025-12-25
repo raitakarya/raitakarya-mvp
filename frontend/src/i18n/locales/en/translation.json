@@ -10,7 +10,17 @@
     "next": "Next",
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "optional": "optional",
+    "step": "Step",
+    "of": "of",
+    "and": "and",
+    "summary": "Summary",
+    "whatsapp": "WhatsApp",
+    "notSet": "Not set",
+    "uploaded": "Uploaded",
+    "notUploaded": "Not uploaded",
+    "backToHome": "Back to Home"
   },
   "navbar": {
     "platform": "Platform",
@@ -130,14 +140,26 @@
     "email": "Email (Optional)",
     "password": "Password",
     "role": "I am a",
+    "iAm": "I am a",
     "farmer": "Farmer",
     "worker": "Worker",
     "alreadyHaveAccount": "Already have an account?",
+    "haveAccount": "Already have an account?",
     "dontHaveAccount": "Don't have an account?",
     "signupSuccess": "Account created successfully!",
     "loginSuccess": "Welcome back!",
     "loginFailed": "Invalid credentials",
-    "signupFailed": "Signup failed. Please try again."
+    "signupFailed": "Signup failed. Please try again.",
+    "joinCommunity": "Join our community of farmers and workers",
+    "basicInfo": "Basic Information",
+    "namePlaceholder": "Enter your full name",
+    "phonePlaceholder": "Enter your phone number",
+    "emailPlaceholder": "Enter your email (optional)",
+    "createPassword": "Create a password",
+    "whatsappNumber": "WhatsApp Number",
+    "usePhoneForWhatsapp": "Use same number for WhatsApp",
+    "whatsappPlaceholder": "Enter WhatsApp number",
+    "creatingAccount": "Creating account..."
   },
   "dashboard": {
     "welcomeBack": "Welcome back",
@@ -165,18 +187,31 @@
   "terms": {
     "title": "Terms & Conditions",
     "accept": "I agree to the Terms & Conditions",
+    "iAccept": "I accept the",
+    "termsAndConditions": "Terms and Conditions",
     "privacyPolicy": "Privacy Policy",
     "mustAccept": "You must accept the terms to continue",
-    "lastUpdated": "Last Updated"
+    "lastUpdated": "Last Updated",
+    "reviewTerms": "Review and Accept Terms",
+    "summary": "Summary of Terms",
+    "point1": "You agree to provide accurate information",
+    "point2": "You will maintain professional conduct",
+    "point3": "Payments are processed securely through our platform",
+    "point4": "Ratings and reviews must be honest and fair"
   },
   "location": {
     "detectLocation": "Detect My Location",
+    "detectMyLocation": "Detect My Location",
     "manualEntry": "Enter Manually",
     "detecting": "Detecting location...",
     "permissionDenied": "Location permission denied",
     "village": "Village/City",
     "district": "District",
-    "state": "State"
+    "state": "State",
+    "location": "Location",
+    "saved": "Location saved",
+    "required": "Location is required",
+    "detectLocationDesc": "We'll use your current location to show you nearby jobs"
   },
   "photo": {
     "uploadPhoto": "Upload Photo",
@@ -186,6 +221,25 @@
     "whyPhoto": "Why we need your photo",
     "photoReason1": "Farmers can see who you are",
     "photoReason2": "Builds trust and credibility",
-    "photoReason3": "Increases your job offers by 40%"
+    "photoReason3": "Increases your job offers by 40%",
+    "required": "Photo is required for workers",
+    "optionalForFarmers": "Photo is optional for farmers but recommended",
+    "photo": "Photo",
+    "uploading": "Uploading...",
+    "invalidFileType": "Please upload a valid image file (JPEG, PNG, GIF)",
+    "fileTooLarge": "File size must be less than 5MB",
+    "uploadFailed": "Upload failed. Please try again."
+  },
+  "rating": {
+    "rateNow": "Rate Now",
+    "yourRating": "Your Rating",
+    "comment": "Comment",
+    "submitRating": "Submit Rating",
+    "ratingSuccess": "Rating submitted successfully!",
+    "poor": "Poor",
+    "fair": "Fair",
+    "good": "Good",
+    "veryGood": "Very Good",
+    "excellent": "Excellent!"
   }
 }

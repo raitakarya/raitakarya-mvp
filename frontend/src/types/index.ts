@@ -11,6 +11,7 @@ export interface User {
   phone: string;
   name: string;
   email?: string;
+  whatsappNumber?: string;
   role: UserRole;
   profileImage?: string;
   isVerified: boolean;
@@ -63,6 +64,7 @@ export interface Job {
   location: string;
   latitude?: number;
   longitude?: number;
+  photos?: string[];
   wagePerDay: number;
   duration: number;
   workersNeeded: number;
