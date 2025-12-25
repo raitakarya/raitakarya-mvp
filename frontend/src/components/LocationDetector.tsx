@@ -5,13 +5,11 @@ import { useGeolocation, LocationData } from '../hooks/useGeolocation';
 interface LocationDetectorProps {
   onLocationDetected: (location: LocationData) => void;
   autoDetect?: boolean;
-  showManualInput?: boolean;
 }
 
 export default function LocationDetector({
   onLocationDetected,
-  autoDetect = false,
-  showManualInput = true
+  autoDetect = false
 }: LocationDetectorProps) {
   const { t } = useTranslation();
   const { location, isLoading, error, requestLocation } = useGeolocation(autoDetect);
