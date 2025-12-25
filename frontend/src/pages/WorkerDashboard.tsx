@@ -7,6 +7,7 @@ import { Job, Application } from '../types';
 import { calculateDistance } from '../utils/distance';
 import RatingModal from '../components/RatingModal';
 import Toast from '../components/Toast';
+import WhatsAppButton from '../components/WhatsAppButton';
 import { useToast } from '../hooks/useToast';
 import { SkeletonJobCard, SkeletonApplicationCard } from '../components/SkeletonLoader';
 import ModernJobCard from '../components/ModernJobCard';

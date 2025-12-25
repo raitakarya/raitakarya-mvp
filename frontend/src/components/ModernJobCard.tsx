@@ -1,6 +1,5 @@
 // Modern, Beautiful Job Card Component - Professional Design
 
-import { Link } from 'react-router-dom';
 import VerifiedBadge from './VerifiedBadge';
 import WhatsAppButton from './WhatsAppButton';
 import { formatDistance } from '../utils/distance';
