@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/authStore';
 import { userApi } from '../api';
 import PhotoUpload from '../components/PhotoUpload';
+import Toast from '../components/Toast';
+import { useToast } from '../hooks/useToast';
 
 export default function Profile() {
   const { t } = useTranslation();
   const { user, logout, loadUser } = useAuthStore();
+  const { toasts, removeToast, success } = useToast();
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,7 +44,7 @@ export default function Profile() {
       await userApi.updateProfile(formData);
       await loadUser();
       setIsEditing(false);
-      alert('Profile updated successfully!');
+      success('Profile updated successfully!');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Failed to update profile');
     } finally {
@@ -419,6 +422,16 @@ export default function Profile() {
           </div>
         </div>
       </main>
+
+      {/* Toast Notifications */}
+      {toasts.map(toast => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </div>
   );
 }

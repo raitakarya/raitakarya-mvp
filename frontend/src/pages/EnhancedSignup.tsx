@@ -5,10 +5,13 @@ import { useAuthStore } from '../store/authStore';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import PhotoUpload from '../components/PhotoUpload';
 import LocationDetector from '../components/LocationDetector';
+import Toast from '../components/Toast';
+import { useToast } from '../hooks/useToast';
 import type { LocationData } from '../hooks/useGeolocation';
 
 export default function EnhancedSignup() {
   const { t } = useTranslation();
+  const { toasts, removeToast, warning } = useToast();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     phone: '',
@@ -66,17 +69,17 @@ export default function EnhancedSignup() {
     }
 
     if (step === 2 && formData.role === 'WORKER' && !formData.profileImage) {
-      alert(t('photo.required'));
+      warning(t('photo.required'));
       return;
     }
 
     if (step === 3 && !formData.location) {
-      alert(t('location.required'));
+      warning(t('location.required'));
       return;
     }
 
     if (step === 4 && !formData.acceptedTerms) {
-      alert(t('terms.mustAccept'));
+      warning(t('terms.mustAccept'));
       return;
     }
 
@@ -93,7 +96,7 @@ export default function EnhancedSignup() {
     clearError();
 
     if (!formData.acceptedTerms) {
-      alert(t('terms.mustAccept'));
+      warning(t('terms.mustAccept'));
       return;
     }
 
@@ -397,6 +400,16 @@ export default function EnhancedSignup() {
           </Link>
         </div>
       </div>
+
+      {/* Toast Notifications */}
+      {toasts.map(toast => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </div>
   );
 }

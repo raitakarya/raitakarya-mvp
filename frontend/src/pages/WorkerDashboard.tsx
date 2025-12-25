@@ -7,10 +7,13 @@ import { Job, Application } from '../types';
 import { calculateDistance, formatDistance } from '../utils/distance';
 import WhatsAppButton from '../components/WhatsAppButton';
 import RatingModal from '../components/RatingModal';
+import Toast from '../components/Toast';
+import { useToast } from '../hooks/useToast';
 
 export default function WorkerDashboard() {
   const { t } = useTranslation();
   const { user, logout } = useAuthStore();
+  const { toasts, removeToast, success, error: showError } = useToast();
   const [activeTab, setActiveTab] = useState<'available' | 'applications'>('available');
   const [jobs, setJobs] = useState<Job[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);
@@ -44,10 +47,10 @@ export default function WorkerDashboard() {
   const handleApply = async (jobId: string) => {
     try {
       await applicationApi.createApplication({ jobId });
-      alert(t('common.success') || 'Application submitted successfully!');
+      success(t('common.success') || 'Application submitted successfully!');
       loadData();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to apply');
+      showError(err.response?.data?.error || 'Failed to apply');
     }
   };
 
@@ -447,6 +450,16 @@ export default function WorkerDashboard() {
           onSuccess={handleRatingSuccess}
         />
       )}
+
+      {/* Toast Notifications */}
+      {toasts.map(toast => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </div>
   );
 }

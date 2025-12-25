@@ -8,10 +8,13 @@ import PhotoUpload from '../components/PhotoUpload';
 import LocationDetector from '../components/LocationDetector';
 import WhatsAppButton from '../components/WhatsAppButton';
 import RatingModal from '../components/RatingModal';
+import Toast from '../components/Toast';
+import { useToast } from '../hooks/useToast';
 
 export default function FarmerDashboard() {
   const { t } = useTranslation();
   const { user, logout } = useAuthStore();
+  const { toasts, removeToast, success, error: showError } = useToast();
   const [activeTab, setActiveTab] = useState<'jobs' | 'create'>('jobs');
   const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,7 +91,7 @@ export default function FarmerDashboard() {
         photos: jobPhotos,
       };
       await jobApi.createJob(jobData);
-      alert(t('common.success') || 'Job created successfully!');
+      success(t('common.success') || 'Job created successfully!');
       setFormData({
         title: '',
         description: '',
@@ -106,27 +109,27 @@ export default function FarmerDashboard() {
       setActiveTab('jobs');
       loadJobs();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to create job');
+      showError(err.response?.data?.error || 'Failed to create job');
     }
   };
 
   const handleUpdateApplicationStatus = async (applicationId: string, status: string) => {
     try {
       await applicationApi.updateApplicationStatus(applicationId, status);
-      alert('Application status updated!');
+      success('Application status updated!');
       loadJobs();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to update status');
+      showError(err.response?.data?.error || 'Failed to update status');
     }
   };
 
   const handleInitiatePayment = async (applicationId: string, amount: number) => {
     try {
       await paymentApi.createPayment({ applicationId, amount });
-      alert('Payment initiated successfully!');
+      success('Payment initiated successfully!');
       loadJobs();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to initiate payment');
+      showError(err.response?.data?.error || 'Failed to initiate payment');
     }
   };
 
@@ -525,6 +528,16 @@ export default function FarmerDashboard() {
           onSuccess={handleRatingSuccess}
         />
       )}
+
+      {/* Toast Notifications */}
+      {toasts.map(toast => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </div>
   );
 }
