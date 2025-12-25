@@ -10,6 +10,7 @@ import RatingModal from '../components/RatingModal';
 import Toast from '../components/Toast';
 import { useToast } from '../hooks/useToast';
 import { SkeletonJobCard, SkeletonApplicationCard } from '../components/SkeletonLoader';
+import VerifiedBadge from '../components/VerifiedBadge';
 
 export default function WorkerDashboard() {
   const { t } = useTranslation();
@@ -289,18 +290,23 @@ export default function WorkerDashboard() {
               <div key={job.id} className="card">
                 <div className="flex justify-between items-start flex-col lg:flex-row gap-4">
                   <div className="flex-1 w-full">
-                    <div className="flex justify-between items-start flex-wrap gap-2">
-                      <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+                        <p className="text-gray-600 mt-1">{job.description}</p>
+                      </div>
                       {job.distance !== null && (
-                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                          </svg>
-                          {formatDistance(job.distance)} away
-                        </span>
+                        <div className="flex flex-col items-end flex-shrink-0">
+                          <div className="inline-flex items-center gap-1 text-blue-600">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <span className="text-2xl font-bold text-blue-600">{formatDistance(job.distance)}</span>
+                          <span className="text-xs text-gray-500 uppercase">away</span>
+                        </div>
                       )}
                     </div>
-                    <p className="text-gray-600 mt-1">{job.description}</p>
                     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
                         <span className="text-sm text-gray-500">{t('jobPosting.location')}</span>
@@ -349,7 +355,10 @@ export default function WorkerDashboard() {
                               </div>
                             )}
                             <div>
-                              <p className="text-sm font-medium text-gray-900">{job.farmer.name}</p>
+                              <div className="flex items-center gap-1">
+                                <p className="text-sm font-medium text-gray-900">{job.farmer.name}</p>
+                                <VerifiedBadge hasPhoto={!!job.farmer.profileImage} />
+                              </div>
                               <p className="text-xs text-gray-500">Posted by Farmer</p>
                             </div>
                           </div>

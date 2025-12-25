@@ -43,6 +43,18 @@ export default function FarmerDashboard() {
     }
   }, [activeTab]);
 
+  // SMART DEFAULTS - Pre-fill location when switching to create tab
+  useEffect(() => {
+    if (activeTab === 'create' && user?.farmerProfile && !formData.location) {
+      setFormData(prev => ({
+        ...prev,
+        location: user.farmerProfile?.farmLocation || '',
+        latitude: user.farmerProfile?.latitude || null,
+        longitude: user.farmerProfile?.longitude || null,
+      }));
+    }
+  }, [activeTab, user]);
+
   const loadJobs = async () => {
     try {
       setIsLoading(true);
