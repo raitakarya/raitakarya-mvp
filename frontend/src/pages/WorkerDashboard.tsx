@@ -4,13 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/authStore';
 import { jobApi, applicationApi } from '../api';
 import { Job, Application } from '../types';
-import { calculateDistance, formatDistance } from '../utils/distance';
-import WhatsAppButton from '../components/WhatsAppButton';
+import { calculateDistance } from '../utils/distance';
 import RatingModal from '../components/RatingModal';
 import Toast from '../components/Toast';
 import { useToast } from '../hooks/useToast';
 import { SkeletonJobCard, SkeletonApplicationCard } from '../components/SkeletonLoader';
-import VerifiedBadge from '../components/VerifiedBadge';
+import ModernJobCard from '../components/ModernJobCard';
 
 export default function WorkerDashboard() {
   const { t } = useTranslation();
@@ -287,99 +286,14 @@ export default function WorkerDashboard() {
             )}
 
             {activeTab === 'available' && filteredAndSortedJobs.map((job) => (
-              <div key={job.id} className="card">
-                <div className="flex justify-between items-start flex-col lg:flex-row gap-4">
-                  <div className="flex-1 w-full">
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
-                        <p className="text-gray-600 mt-1">{job.description}</p>
-                      </div>
-                      {job.distance !== null && (
-                        <div className="flex flex-col items-end flex-shrink-0">
-                          <div className="inline-flex items-center gap-1 text-blue-600">
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <span className="text-2xl font-bold text-blue-600">{formatDistance(job.distance)}</span>
-                          <span className="text-xs text-gray-500 uppercase">away</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div>
-                        <span className="text-sm text-gray-500">{t('jobPosting.location')}</span>
-                        <p className="font-medium">{job.location}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm text-gray-500">{t('jobPosting.wagePerDay')}</span>
-                        <p className="font-medium text-accent-600">₹{job.wagePerDay}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm text-gray-500">{t('jobPosting.duration')}</span>
-                        <p className="font-medium">{job.duration} days</p>
-                      </div>
-                      <div>
-                        <span className="text-sm text-gray-500">{t('jobPosting.workersNeeded')}</span>
-                        <p className="font-medium">{job.workersNeeded}</p>
-                      </div>
-                    </div>
-                    {job.requiredSkills && job.requiredSkills.length > 0 && (
-                      <div className="mt-4">
-                        <span className="text-sm text-gray-500">{t('jobPosting.requiredSkills')}:</span>
-                        <div className="flex flex-wrap gap-2 mt-1">
-                          {job.requiredSkills.map((skill, idx) => (
-                            <span key={idx} className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {job.farmer && (
-                      <div className="mt-4 pt-4 border-t border-gray-200">
-                        <div className="flex items-center justify-between flex-wrap gap-3">
-                          <div className="flex items-center gap-3">
-                            {job.farmer.profileImage ? (
-                              <img
-                                src={job.farmer.profileImage}
-                                alt={job.farmer.name}
-                                className="w-10 h-10 rounded-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                              </div>
-                            )}
-                            <div>
-                              <div className="flex items-center gap-1">
-                                <p className="text-sm font-medium text-gray-900">{job.farmer.name}</p>
-                                <VerifiedBadge hasPhoto={!!job.farmer.profileImage} />
-                              </div>
-                              <p className="text-xs text-gray-500">Posted by Farmer</p>
-                            </div>
-                          </div>
-                          <WhatsAppButton
-                            phoneNumber={job.farmer.phone}
-                            message={`Hello, I'm interested in your job posting: ${job.title}`}
-                            size="sm"
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => handleApply(job.id)}
-                    disabled={hasApplied(job.id)}
-                    className={`btn ${hasApplied(job.id) ? 'btn-secondary' : 'btn-primary'} whitespace-nowrap`}
-                  >
-                    {hasApplied(job.id) ? 'Applied' : 'Apply Now'}
-                  </button>
-                </div>
-              </div>
+              <ModernJobCard
+                key={job.id}
+                job={job}
+                onApply={handleApply}
+                hasApplied={hasApplied(job.id)}
+                userRole="WORKER"
+                showActions={true}
+              />
             ))}
 
             {activeTab === 'applications' && applications.length === 0 && (
