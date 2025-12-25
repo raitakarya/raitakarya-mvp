@@ -10,6 +10,7 @@ import WhatsAppButton from '../components/WhatsAppButton';
 import RatingModal from '../components/RatingModal';
 import Toast from '../components/Toast';
 import { useToast } from '../hooks/useToast';
+import { SkeletonJobCard } from '../components/SkeletonLoader';
 
 export default function FarmerDashboard() {
   const { t } = useTranslation();
@@ -338,8 +339,9 @@ export default function FarmerDashboard() {
 
         {activeTab === 'jobs' && (
           isLoading ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500">{t('common.loading')}</p>
+            <div className="space-y-6">
+              <SkeletonJobCard />
+              <SkeletonJobCard />
             </div>
           ) : (
             <div className="space-y-6">

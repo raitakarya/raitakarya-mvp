@@ -9,6 +9,7 @@ import WhatsAppButton from '../components/WhatsAppButton';
 import RatingModal from '../components/RatingModal';
 import Toast from '../components/Toast';
 import { useToast } from '../hooks/useToast';
+import { SkeletonJobCard, SkeletonApplicationCard } from '../components/SkeletonLoader';
 
 export default function WorkerDashboard() {
   const { t } = useTranslation();
@@ -246,8 +247,19 @@ export default function WorkerDashboard() {
         )}
 
         {isLoading ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500">{t('common.loading')}</p>
+          <div className="space-y-4">
+            {activeTab === 'available' ? (
+              <>
+                <SkeletonJobCard />
+                <SkeletonJobCard />
+                <SkeletonJobCard />
+              </>
+            ) : (
+              <>
+                <SkeletonApplicationCard />
+                <SkeletonApplicationCard />
+              </>
+            )}
           </div>
         ) : (
           <div className="space-y-4">
