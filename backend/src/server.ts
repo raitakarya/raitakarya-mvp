@@ -25,13 +25,15 @@ try {
   const applicationRoutes = require('./routes/application.routes').default;
   const paymentRoutes = require('./routes/payment.routes').default;
   const ratingRoutes = require('./routes/rating.routes').default;
-  
+  const uploadRoutes = require('./routes/upload.routes').default;
+
   app.use('/api/auth', authRoutes);
   app.use('/api/users', userRoutes);
   app.use('/api/jobs', jobRoutes);
   app.use('/api/applications', applicationRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/ratings', ratingRoutes);
+  app.use('/api/upload', uploadRoutes);
 } catch (e) {}
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

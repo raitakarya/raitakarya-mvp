@@ -8,6 +8,8 @@ import WorkerDashboard from './pages/WorkerDashboard';
 import FarmerDashboard from './pages/FarmerDashboard';
 import JobDetails from './pages/JobDetails';
 import Profile from './pages/Profile';
+import TermsAndConditions from './pages/TermsAndConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const { token, user, loadUser } = useAuthStore();
@@ -74,6 +76,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
