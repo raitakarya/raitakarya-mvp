@@ -73,7 +73,12 @@ export const signup = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('Signup error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error details:', error.message);
+    console.error('Error stack:', error.stack);
+    res.status(500).json({
+      error: 'Internal server error',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
