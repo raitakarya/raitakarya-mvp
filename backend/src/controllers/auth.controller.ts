@@ -16,12 +16,15 @@ export const signup = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Role must be WORKER or FARMER' });
     }
 
+    // Check if user already exists with this phone or email
+    const whereConditions: any[] = [{ phone }];
+    if (email) {
+      whereConditions.push({ email });
+    }
+
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [
-          { phone },
-          email ? { email } : { phone: '' }
-        ]
+        OR: whereConditions
       }
     });
 
@@ -75,6 +78,15 @@ export const signup = async (req: Request, res: Response) => {
     console.error('Signup error:', error);
     console.error('Error details:', error.message);
     console.error('Error stack:', error.stack);
+
+    // Handle Prisma unique constraint errors
+    if (error.code === 'P2002') {
+      const field = error.meta?.target?.[0] || 'field';
+      return res.status(400).json({
+        error: `A user with this ${field} already exists. Please use a different ${field}.`
+      });
+    }
+
     res.status(500).json({
       error: 'Internal server error',
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
