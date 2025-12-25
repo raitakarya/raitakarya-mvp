@@ -1,0 +1,191 @@
+{
+  "common": {
+    "or": "or",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "navbar": {
+    "platform": "Platform",
+    "impact": "Impact",
+    "howItWorks": "How It Works",
+    "about": "About",
+    "signIn": "Sign In",
+    "downloadApp": "Download App",
+    "languageLabel": "EN"
+  },
+  "hero": {
+    "title": "The Future of Agriculture Is Connected",
+    "subtitle": "Raithakarya connects 260M workers with farmers instantly. Voice-first. 11 languages. Zero exploitation.",
+    "ctaGetStarted": "Get Started",
+    "ctaWatchDemo": "Watch Demo",
+    "trustedBy": "Trusted by 500k+ Farmers",
+    "liveStates": "Live in 28 States"
+  },
+  "problem": {
+    "title": "The Challenge",
+    "subtitle": "Agricultural Labor is Fundamentally Broken",
+    "farmerTitle": "For Farmers",
+    "farmerStat": "25% Labor Shortage",
+    "workerTitle": "For Workers",
+    "workerDays": "150 Days Unemployed",
+    "workerIncome": "₹1.8L Cr Lost Income",
+    "unorganized": "Unorganized Market",
+    "offline": "95% Offline",
+    "ruralEconomy": "Rural Economy",
+    "stagnant": "Stagnant"
+  },
+  "solution": {
+    "title": "The Solution",
+    "subtitle": "One Platform. Complete Transformation.",
+    "voiceFirst": "Voice-First for All",
+    "voiceDesc": "11 Indian languages with complete voice navigation. 65% illiterate? No problem.",
+    "aiMatching": "AI-Powered Matching",
+    "aiDesc": "Smart algorithms connect the right worker to the right farm, every time.",
+    "escrowPay": "Escrow & Instant Pay",
+    "escrowDesc": "Secure payments. Farmers deposit upfront, workers paid daily. Zero disputes.",
+    "verified": "Verified Users",
+    "verifiedDesc": "Every user verified. GPS tracking. Rating system. Complete transparency.",
+    "realtime": "Real-Time Dashboard",
+    "realtimeDesc": "Live job updates, worker availability, payment tracking - all in one place.",
+    "ecosystem": "Complete Ecosystem",
+    "ecosystemDesc": "Training, insurance, equipment rental, financial services - everything included.",
+    "learnMore": "Learn more",
+    "seeHowItWorks": "See How It Works"
+  },
+  "howItWorks": {
+    "title": "Simple for Everyone. Powerful for All.",
+    "worker": {
+      "step1Title": "Voice-First Registration",
+      "step1Desc": "Register in 2 minutes using voice. No reading required.",
+      "step2Title": "Find Nearby Jobs",
+      "step2Desc": "AI shows you best-matching jobs within 20km.",
+      "step3Title": "GPS Check-In",
+      "step3Desc": "Arrive at farm, tap check-in. Work tracked automatically.",
+      "step4Title": "Instant Daily Wages",
+      "step4Desc": "Get paid same day. Direct to bank. Zero deductions."
+    },
+    "farmer": {
+      "step1Title": "Post Requirements",
+      "step1Desc": "Describe your need in 30 seconds. We handle the rest.",
+      "step2Title": "AI Smart Matching",
+      "step2Desc": "Get 10+ verified workers matched instantly.",
+      "step3Title": "Live Dashboard",
+      "step3Desc": "Track attendance, hours, quality in real-time.",
+      "step4Title": "Escrow Payments",
+      "step4Desc": "Pay only for verified work. Secure and transparent."
+    }
+  },
+  "impact": {
+    "title": "Live Impact",
+    "subtitle": "Scaling Trust Across India",
+    "statesLive": "States Live",
+    "languages": "Languages",
+    "verifiedWorkers": "5M+ Verified Workers",
+    "farmerPartners": "500K+ Farmer Partners",
+    "jobsCompleted": "25M+ Jobs Completed",
+    "impactNote": "We've eliminated ₹45,000 Cr in contractor exploitation, increased worker income by 35%, and saved farmers 15-40% on labor costs."
+  },
+  "cta": {
+    "title": "Join the Agricultural Revolution",
+    "lookingForWork": "I'm Looking for Work",
+    "needWorkers": "I Need Workers",
+    "workerBenefits": {
+      "benefit1": "Find jobs near you instantly",
+      "benefit2": "No middlemen, keep 100% wages",
+      "benefit3": "Daily payment, zero delays",
+      "benefit4": "Build your reputation",
+      "benefit5": "Insurance & training included"
+    },
+    "farmerBenefits": {
+      "benefit1": "Post jobs in 30 seconds",
+      "benefit2": "AI-matched verified workers",
+      "benefit3": "Save 15-40% vs contractors",
+      "benefit4": "GPS tracking & attendance",
+      "benefit5": "Pay only for verified work"
+    }
+  },
+  "footer": {
+    "tagline": "Khet se Khushhaali. Transforming India's agricultural labor market through technology and trust.",
+    "product": "Product",
+    "company": "Company",
+    "support": "Support",
+    "getInTouch": "Get in Touch",
+    "rights": "© 2024 Raithakarya. All rights reserved.",
+    "builtWith": "Built with ❤️ in Bengaluru"
+  },
+  "auth": {
+    "signup": "Sign Up",
+    "login": "Login",
+    "logout": "Logout",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "email": "Email (Optional)",
+    "password": "Password",
+    "role": "I am a",
+    "farmer": "Farmer",
+    "worker": "Worker",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "signupSuccess": "Account created successfully!",
+    "loginSuccess": "Welcome back!",
+    "loginFailed": "Invalid credentials",
+    "signupFailed": "Signup failed. Please try again."
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome back",
+    "myJobs": "My Jobs",
+    "postNewJob": "Post New Job",
+    "availableJobs": "Available Jobs",
+    "myApplications": "My Applications",
+    "profile": "Profile",
+    "earnings": "Earnings",
+    "rating": "Rating"
+  },
+  "jobPosting": {
+    "title": "Job Title",
+    "description": "Job Description",
+    "jobType": "Type of Work",
+    "location": "Location",
+    "wagePerDay": "Wage Per Day (₹)",
+    "duration": "Duration (days)",
+    "workersNeeded": "Workers Needed",
+    "requiredSkills": "Required Skills",
+    "startDate": "Start Date",
+    "postJob": "Post Job",
+    "updateJob": "Update Job"
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "accept": "I agree to the Terms & Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "mustAccept": "You must accept the terms to continue",
+    "lastUpdated": "Last Updated"
+  },
+  "location": {
+    "detectLocation": "Detect My Location",
+    "manualEntry": "Enter Manually",
+    "detecting": "Detecting location...",
+    "permissionDenied": "Location permission denied",
+    "village": "Village/City",
+    "district": "District",
+    "state": "State"
+  },
+  "photo": {
+    "uploadPhoto": "Upload Photo",
+    "takePhoto": "Take Photo",
+    "changePhoto": "Change Photo",
+    "photoOptional": "Photo is optional but recommended",
+    "whyPhoto": "Why we need your photo",
+    "photoReason1": "Farmers can see who you are",
+    "photoReason2": "Builds trust and credibility",
+    "photoReason3": "Increases your job offers by 40%"
+  }
+}

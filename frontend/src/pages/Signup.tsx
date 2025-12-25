@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/authStore';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 export default function Signup() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     phone: '',
     name: '',
@@ -33,12 +36,18 @@ export default function Signup() {
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary-700">Raitakarya</h1>
-          <p className="text-gray-600 mt-2">Join our community of farmers and workers.</p>
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex-1"></div>
+            <h1 className="text-3xl font-bold text-primary-700 flex-1 text-center">Raitakarya</h1>
+            <div className="flex-1 flex justify-end">
+              <LanguageSwitcher />
+            </div>
+          </div>
+          <p className="text-gray-600 mt-2">{t('auth.joinCommunity')}</p>
         </div>
 
         <div className="card">
-          <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('auth.signup')}</h2>
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
@@ -49,7 +58,7 @@ export default function Signup() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
+                {t('auth.name')}
               </label>
               <input
                 type="text"
@@ -57,14 +66,14 @@ export default function Signup() {
                 value={formData.name}
                 onChange={handleChange}
                 className="input"
-                placeholder="Enter your full name"
+                placeholder={t('auth.namePlaceholder')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number
+                {t('auth.phone')}
               </label>
               <input
                 type="tel"
@@ -72,14 +81,14 @@ export default function Signup() {
                 value={formData.phone}
                 onChange={handleChange}
                 className="input"
-                placeholder="Enter your phone number"
+                placeholder={t('auth.phonePlaceholder')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email (Optional)
+                {t('auth.email')}
               </label>
               <input
                 type="email"
@@ -87,13 +96,13 @@ export default function Signup() {
                 value={formData.email}
                 onChange={handleChange}
                 className="input"
-                placeholder="Enter your email"
+                placeholder={t('auth.emailPlaceholder')}
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+                {t('auth.password')}
               </label>
               <input
                 type="password"
@@ -101,7 +110,7 @@ export default function Signup() {
                 value={formData.password}
                 onChange={handleChange}
                 className="input"
-                placeholder="Create a password"
+                placeholder={t('auth.createPassword')}
                 required
                 minLength={6}
               />
@@ -109,7 +118,7 @@ export default function Signup() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                I am a...
+                {t('auth.iAm')}
               </label>
               <select
                 name="role"
@@ -118,8 +127,8 @@ export default function Signup() {
                 className="input"
                 required
               >
-                <option value="WORKER">Agricultural Worker</option>
-                <option value="FARMER">Farmer</option>
+                <option value="WORKER">{t('auth.worker')}</option>
+                <option value="FARMER">{t('auth.farmer')}</option>
               </select>
             </div>
 
@@ -128,15 +137,15 @@ export default function Signup() {
               disabled={isLoading}
               className="w-full btn btn-primary"
             >
-              {isLoading ? 'Creating account...' : 'Sign Up'}
+              {isLoading ? t('auth.creatingAccount') : t('auth.signup')}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-gray-600">
-              Already have an account?{' '}
+              {t('auth.haveAccount')}{' '}
               <Link to="/login" className="text-primary-600 hover:text-primary-700 font-medium">
-                Login
+                {t('auth.login')}
               </Link>
             </p>
           </div>
@@ -144,7 +153,7 @@ export default function Signup() {
 
         <div className="mt-6 text-center">
           <Link to="/" className="text-gray-600 hover:text-gray-800">
-            ← Back to home
+            ← {t('common.backToHome')}
           </Link>
         </div>
       </div>
