@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { jobApi, applicationApi } from '../api';
 import { Job, Application } from '../types';
 
 export default function WorkerDashboard() {
   const { user, logout } = useAuthStore();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'available' | 'applications'>('available');
   const [jobs, setJobs] = useState<Job[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);

@@ -1,5 +1,5 @@
 import { apiClient } from './client';
-import { User, Job, Application, Payment, Rating } from '../types';
+import { User, Job } from '../types';
 
 // Auth API
 export const authApi = {

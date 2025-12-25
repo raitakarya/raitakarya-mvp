@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { jobApi, applicationApi } from '../api';
 import { Job } from '../types';
 
 export default function FarmerDashboard() {
   const { user, logout } = useAuthStore();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'jobs' | 'create'>('jobs');
   const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
