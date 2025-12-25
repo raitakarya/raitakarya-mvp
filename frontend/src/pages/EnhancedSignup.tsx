@@ -213,8 +213,9 @@ export default function EnhancedSignup() {
                     className="input"
                     placeholder={t('auth.createPassword')}
                     required
-                    minLength={6}
+                    minLength={8}
                   />
+                  <p className="text-xs text-gray-500 mt-1">Minimum 8 characters</p>
                 </div>
 
                 <div>

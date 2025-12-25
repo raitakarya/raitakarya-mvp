@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 export interface LocationData {
   latitude: number;
@@ -17,6 +17,7 @@ export function useGeolocation(autoRequest: boolean = false): GeolocationState {
   const [location, setLocation] = useState<LocationData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isMountedRef = useRef(true);
 
   const reverseGeocode = async (latitude: number, longitude: number): Promise<string> => {
     try {
@@ -50,7 +51,7 @@ export function useGeolocation(autoRequest: boolean = false): GeolocationState {
     }
   };
 
-  const requestLocation = () => {
+  const requestLocation = useCallback(() => {
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by your browser');
       return;
@@ -61,10 +62,15 @@ export function useGeolocation(autoRequest: boolean = false): GeolocationState {
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
+        // Only update state if component is still mounted
+        if (!isMountedRef.current) return;
+
         const { latitude, longitude } = position.coords;
 
         // Get location name from coordinates
         const locationName = await reverseGeocode(latitude, longitude);
+
+        if (!isMountedRef.current) return;
 
         setLocation({
           latitude,
@@ -74,6 +80,8 @@ export function useGeolocation(autoRequest: boolean = false): GeolocationState {
         setIsLoading(false);
       },
       (err) => {
+        if (!isMountedRef.current) return;
+
         let errorMessage = 'Unable to retrieve your location';
 
         switch (err.code) {
@@ -97,13 +105,21 @@ export function useGeolocation(autoRequest: boolean = false): GeolocationState {
         maximumAge: 0
       }
     );
-  };
+  }, []); // Empty deps - stable reference
 
   useEffect(() => {
+    // Track mount state
+    isMountedRef.current = true;
+
     if (autoRequest) {
       requestLocation();
     }
-  }, [autoRequest]);
+
+    // Cleanup on unmount
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [autoRequest, requestLocation]);
 
   return {
     location,
