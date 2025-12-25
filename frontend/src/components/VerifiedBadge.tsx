@@ -22,12 +22,12 @@ export default function VerifiedBadge({ hasPhoto, size = 'sm', showLabel = false
   };
 
   return (
-    <span className="inline-flex items-center gap-1">
+    <span className="inline-flex items-center gap-1" title="Verified Profile">
       <svg
         className={`${sizes[size]} text-blue-500`}
         fill="currentColor"
         viewBox="0 0 20 20"
-        title="Verified Profile"
+        aria-label="Verified Profile"
       >
         <path
           fillRule="evenodd"
