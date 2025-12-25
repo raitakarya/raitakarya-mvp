@@ -36,22 +36,24 @@ enum PaymentStatus {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  phone         String   @unique
-  name          String
-  email         String?  @unique
-  password      String
-  role          UserRole
-  profileImage  String?
-  isVerified    Boolean  @default(false)
-  workerProfile WorkerProfile?
-  applications  Application[]
+  id              String   @id @default(uuid())
+  phone           String   @unique
+  name            String
+  email           String?  @unique
+  password        String
+  role            UserRole
+  profileImage    String?
+  whatsappNumber  String?
+  acceptedTermsAt DateTime?
+  isVerified      Boolean  @default(false)
+  workerProfile   WorkerProfile?
+  applications    Application[]
   receivedRatings Rating[] @relation("ReceivedRatings")
-  farmerProfile FarmerProfile?
-  postedJobs    Job[]
-  givenRatings  Rating[] @relation("GivenRatings")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  farmerProfile   FarmerProfile?
+  postedJobs      Job[]
+  givenRatings    Rating[] @relation("GivenRatings")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   @@index([phone])
   @@index([email])
 }
@@ -101,6 +103,7 @@ model Job {
   location      String
   latitude      Float?
   longitude     Float?
+  photos        String[]
   wagePerDay    Float
   duration      Int
   workersNeeded Int

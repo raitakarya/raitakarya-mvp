@@ -1,0 +1,65 @@
+{
+  "common": {
+    "step": "Step",
+    "of": "of",
+    "and": "and",
+    "summary": "Summary",
+    "notSet": "Not Set",
+    "uploaded": "Uploaded",
+    "notUploaded": "Not Uploaded",
+    "next": "Next",
+    "back": "Back",
+    "optional": "optional",
+    "submitting": "Submitting...",
+    "characters": "characters",
+    "whatsapp": "WhatsApp"
+  },
+  "auth": {
+    "basicInfo": "Basic Information",
+    "usePhoneForWhatsapp": "Use same number for WhatsApp",
+    "whatsappNumber": "WhatsApp Number",
+    "whatsappPlaceholder": "Enter WhatsApp number"
+  },
+  "photo": {
+    "required": "Photo is required for workers",
+    "optionalForFarmers": "Photo is optional for farmers but recommended",
+    "whyPhoto": "Why upload a photo?",
+    "photo": "Photo"
+  },
+  "location": {
+    "required": "Please detect your location to continue",
+    "saved": "Location Saved",
+    "location": "Location"
+  },
+  "terms": {
+    "reviewTerms": "Review Terms",
+    "summary": "Summary",
+    "point1": "You agree to use this platform for agricultural labor marketplace",
+    "point2": "You will provide accurate information and maintain professional conduct",
+    "point3": "Payment terms and conditions apply for all transactions",
+    "point4": "Your personal data will be handled as per our Privacy Policy",
+    "iAccept": "I accept the",
+    "termsAndConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "mustAccept": "You must accept the terms and conditions"
+  },
+  "rating": {
+    "rateUser": "Rate User",
+    "ratingFor": "Rating for",
+    "yourRating": "Your Rating",
+    "selectRating": "Please select a rating",
+    "submitError": "Failed to submit rating",
+    "poor": "Poor",
+    "fair": "Fair",
+    "good": "Good",
+    "veryGood": "Very Good",
+    "excellent": "Excellent!",
+    "comment": "Comment",
+    "commentPlaceholder": "Share your experience (optional)",
+    "submitRating": "Submit Rating"
+  },
+  "distance": {
+    "away": "away",
+    "nearYou": "Near you"
+  }
+}
