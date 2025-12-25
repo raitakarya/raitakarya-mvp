@@ -79,6 +79,8 @@ export default function FarmerDashboard() {
     try {
       const jobData = {
         ...formData,
+        latitude: formData.latitude ?? undefined,
+        longitude: formData.longitude ?? undefined,
         wagePerDay: parseFloat(formData.wagePerDay),
         duration: parseInt(formData.duration),
         workersNeeded: parseInt(formData.workersNeeded),
