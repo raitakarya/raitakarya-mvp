@@ -18,6 +18,16 @@ export const createPayment = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Application ID and amount are required' });
     }
 
+    // Validate amount
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      return res.status(400).json({ error: 'Amount must be a positive number' });
+    }
+
+    if (parsedAmount > 1000000) {
+      return res.status(400).json({ error: 'Amount cannot exceed ₹10,00,000' });
+    }
+
     const application = await prisma.application.findUnique({
       where: { id: applicationId },
       include: {
@@ -42,10 +52,18 @@ export const createPayment = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Payment already exists for this application' });
     }
 
+    // Verify amount matches job calculation
+    const expectedAmount = application.job.wagePerDay * application.job.duration;
+    if (Math.abs(parsedAmount - expectedAmount) > 0.01) {
+      return res.status(400).json({
+        error: `Amount mismatch. Expected ₹${expectedAmount} (₹${application.job.wagePerDay}/day × ${application.job.duration} days)`
+      });
+    }
+
     const payment = await prisma.payment.create({
       data: {
         applicationId,
-        amount: parseFloat(amount),
+        amount: parsedAmount,
         status: 'HELD_IN_ESCROW'
       },
       include: {
@@ -107,46 +125,56 @@ export const releasePayment = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Payment is not in escrow' });
     }
 
-    const updatedPayment = await prisma.payment.update({
-      where: { id },
-      data: {
-        status: 'RELEASED',
-        releasedAt: new Date()
-      },
-      include: {
-        application: {
-          include: {
-            job: true,
-            worker: {
-              select: {
-                id: true,
-                name: true,
-                phone: true
+    // CRITICAL: Use transaction to ensure all-or-nothing payment release
+    // If any step fails, entire operation rolls back
+    const updatedPayment = await prisma.$transaction(async (tx) => {
+      // 1. Update payment status to RELEASED
+      const releasedPayment = await tx.payment.update({
+        where: { id },
+        data: {
+          status: 'RELEASED',
+          releasedAt: new Date()
+        },
+        include: {
+          application: {
+            include: {
+              job: true,
+              worker: {
+                select: {
+                  id: true,
+                  name: true,
+                  phone: true
+                }
               }
             }
           }
         }
-      }
-    });
+      });
 
-    await prisma.application.update({
-      where: { id: payment.applicationId },
-      data: { status: 'COMPLETED' }
-    });
+      // 2. Mark application as COMPLETED
+      await tx.application.update({
+        where: { id: payment.applicationId },
+        data: { status: 'COMPLETED' }
+      });
 
-    await prisma.workerProfile.update({
-      where: { userId: payment.application.workerId },
-      data: {
-        totalEarnings: { increment: payment.amount },
-        totalJobs: { increment: 1 }
-      }
-    });
+      // 3. Update worker's earnings and job count
+      await tx.workerProfile.update({
+        where: { userId: payment.application.workerId },
+        data: {
+          totalEarnings: { increment: payment.amount },
+          totalJobs: { increment: 1 }
+        }
+      });
 
-    await prisma.farmerProfile.update({
-      where: { userId: payment.application.job.farmerId },
-      data: {
-        totalSpent: { increment: payment.amount }
-      }
+      // 4. Update farmer's total spent
+      await tx.farmerProfile.update({
+        where: { userId: payment.application.job.farmerId },
+        data: {
+          totalSpent: { increment: payment.amount }
+        }
+      });
+
+      return releasedPayment;
     });
 
     res.json({ message: 'Payment released successfully', payment: updatedPayment });

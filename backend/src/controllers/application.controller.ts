@@ -149,38 +149,60 @@ export const updateApplicationStatus = async (req: AuthRequest, res: Response) =
       return res.status(403).json({ error: 'You can only update applications for your own jobs' });
     }
 
-    const updatedApplication = await prisma.application.update({
-      where: { id },
-      data: { status },
-      include: {
-        job: true,
-        worker: {
-          select: {
-            id: true,
-            name: true,
-            phone: true,
-            workerProfile: true
+    // CRITICAL: Use transaction to prevent race condition
+    // Prevents over-accepting applications when multiple farmers accept simultaneously
+    const updatedApplication = await prisma.$transaction(async (tx) => {
+      // If accepting, check if job is already full
+      if (status === 'ACCEPTED') {
+        const acceptedCount = await tx.application.count({
+          where: {
+            jobId: application.jobId,
+            status: 'ACCEPTED'
           }
-        },
-        payment: true
-      }
-    });
+        });
 
-    if (status === 'ACCEPTED') {
-      const acceptedCount = await prisma.application.count({
-        where: {
-          jobId: application.jobId,
-          status: 'ACCEPTED'
+        if (acceptedCount >= application.job.workersNeeded) {
+          throw new Error('Job is already full. Cannot accept more applications.');
+        }
+      }
+
+      // Update the application status
+      const updated = await tx.application.update({
+        where: { id },
+        data: { status },
+        include: {
+          job: true,
+          worker: {
+            select: {
+              id: true,
+              name: true,
+              phone: true,
+              workerProfile: true
+            }
+          },
+          payment: true
         }
       });
 
-      if (acceptedCount >= application.job.workersNeeded) {
-        await prisma.job.update({
-          where: { id: application.jobId },
-          data: { status: 'IN_PROGRESS' }
+      // If accepting and now at capacity, mark job as IN_PROGRESS
+      if (status === 'ACCEPTED') {
+        const newAcceptedCount = await tx.application.count({
+          where: {
+            jobId: application.jobId,
+            status: 'ACCEPTED'
+          }
         });
+
+        if (newAcceptedCount >= application.job.workersNeeded) {
+          await tx.job.update({
+            where: { id: application.jobId },
+            data: { status: 'IN_PROGRESS' }
+          });
+        }
       }
-    }
+
+      return updated;
+    });
 
     res.json({ message: 'Application status updated successfully', application: updatedApplication });
   } catch (error: any) {

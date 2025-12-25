@@ -6,14 +6,46 @@ import { AuthRequest } from '../middleware/auth.middleware';
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const { phone, name, email, password, role } = req.body;
+    const {
+      phone,
+      name,
+      email,
+      password,
+      role,
+      profileImage,
+      whatsappNumber,
+      location,
+      latitude,
+      longitude,
+      acceptedTerms
+    } = req.body;
 
+    // Basic field validation
     if (!phone || !name || !password || !role) {
       return res.status(400).json({ error: 'Phone, name, password, and role are required' });
     }
 
     if (!['WORKER', 'FARMER'].includes(role)) {
       return res.status(400).json({ error: 'Role must be WORKER or FARMER' });
+    }
+
+    // Password strength validation
+    if (password.length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters long' });
+    }
+
+    // Phone number basic validation (Indian format)
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone.replace(/\D/g, ''))) {
+      return res.status(400).json({ error: 'Please enter a valid 10-digit Indian phone number' });
+    }
+
+    // Email validation if provided
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Please enter a valid email address' });
+      }
     }
 
     // Check if user already exists with this phone or email
@@ -34,40 +66,54 @@ export const signup = async (req: Request, res: Response) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const user = await prisma.user.create({
-      data: {
-        phone,
-        name,
-        email,
-        password: hashedPassword,
-        role
+    // Use transaction to ensure atomicity - CRITICAL for data consistency
+    const result = await prisma.$transaction(async (tx) => {
+      // Create user
+      const user = await tx.user.create({
+        data: {
+          phone,
+          name,
+          email: email || null,
+          password: hashedPassword,
+          role,
+          profileImage: profileImage || null,
+          whatsappNumber: whatsappNumber || null,
+          acceptedTermsAt: acceptedTerms ? new Date() : null
+        }
+      });
+
+      // Create role-specific profile
+      if (role === 'WORKER') {
+        await tx.workerProfile.create({
+          data: {
+            userId: user.id,
+            skills: [],
+            languages: [],
+            location: location || '',
+            latitude: latitude || null,
+            longitude: longitude || null,
+            certifications: []
+          }
+        });
+      } else if (role === 'FARMER') {
+        await tx.farmerProfile.create({
+          data: {
+            userId: user.id,
+            farmName: '',
+            farmLocation: location || '',
+            latitude: latitude || null,
+            longitude: longitude || null,
+            cropTypes: []
+          }
+        });
       }
+
+      return user;
     });
 
-    if (role === 'WORKER') {
-      await prisma.workerProfile.create({
-        data: {
-          userId: user.id,
-          skills: [],
-          languages: [],
-          location: '',
-          certifications: []
-        }
-      });
-    } else if (role === 'FARMER') {
-      await prisma.farmerProfile.create({
-        data: {
-          userId: user.id,
-          farmName: '',
-          farmLocation: '',
-          cropTypes: []
-        }
-      });
-    }
+    const token = generateToken({ userId: result.id, role: result.role });
 
-    const token = generateToken({ userId: user.id, role: user.role });
-
-    const { password: _, ...userWithoutPassword } = user;
+    const { password: _, ...userWithoutPassword } = result;
 
     res.status(201).json({
       message: 'User created successfully',

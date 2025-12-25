@@ -74,6 +74,7 @@ model WorkerProfile {
   averageRating   Float    @default(0)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  @@index([latitude, longitude])
 }
 
 model FarmerProfile {
@@ -96,7 +97,7 @@ model FarmerProfile {
 model Job {
   id            String    @id @default(uuid())
   farmerId      String
-  farmer        User      @relation(fields: [farmerId], references: [id])
+  farmer        User      @relation(fields: [farmerId], references: [id], onDelete: Cascade)
   title         String
   description   String
   jobType       String
@@ -117,6 +118,9 @@ model Job {
   @@index([farmerId])
   @@index([status])
   @@index([jobType])
+  @@index([latitude, longitude])
+  @@index([status, startDate])
+  @@index([createdAt])
 }
 
 model Application {
