@@ -45,18 +45,30 @@ export default function WorkerDashboard() {
     }
   };
 
+  const [optimisticApplications, setOptimisticApplications] = useState<Set<string>>(new Set());
+
   const handleApply = async (jobId: string) => {
+    // OPTIMISTIC UI - Update UI immediately for instant feedback!
+    setOptimisticApplications(prev => new Set(prev).add(jobId));
+    success('Application submitted!');
+
     try {
       await applicationApi.createApplication({ jobId });
-      success(t('common.success') || 'Application submitted successfully!');
+      // Refresh to get real data
       loadData();
     } catch (err: any) {
-      showError(err.response?.data?.error || 'Failed to apply');
+      // Revert optimistic update on error
+      setOptimisticApplications(prev => {
+        const next = new Set(prev);
+        next.delete(jobId);
+        return next;
+      });
+      showError(err.response?.data?.error || 'Failed to apply. Please try again.');
     }
   };
 
   const hasApplied = (jobId: string) => {
-    return applications.some(app => app.jobId === jobId);
+    return applications.some(app => app.jobId === jobId) || optimisticApplications.has(jobId);
   };
 
   const openRatingModal = (farmerId: string, farmerName: string) => {
