@@ -74,7 +74,12 @@ export const createJob = async (req: AuthRequest, res: Response) => {
 
 export const getJobs = async (req: AuthRequest, res: Response) => {
   try {
-    const { status, jobType, location } = req.query;
+    const { status, jobType, location, page = '1', limit = '20' } = req.query;
+
+    // Pagination parameters
+    const pageNum = Math.max(1, parseInt(page as string));
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit as string))); // Max 100 per page
+    const skip = (pageNum - 1) * limitNum;
 
     const where: any = {};
 
@@ -92,6 +97,9 @@ export const getJobs = async (req: AuthRequest, res: Response) => {
         mode: 'insensitive'
       };
     }
+
+    // Get total count for pagination metadata
+    const totalCount = await prisma.job.count({ where });
 
     const jobs = await prisma.job.findMany({
       where,
@@ -118,10 +126,21 @@ export const getJobs = async (req: AuthRequest, res: Response) => {
       },
       orderBy: {
         createdAt: 'desc'
-      }
+      },
+      skip,
+      take: limitNum
     });
 
-    res.json({ jobs });
+    res.json({
+      jobs,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total: totalCount,
+        totalPages: Math.ceil(totalCount / limitNum),
+        hasMore: skip + jobs.length < totalCount
+      }
+    });
   } catch (error: any) {
     console.error('Get jobs error:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -255,10 +274,20 @@ export const getMyJobs = async (req: AuthRequest, res: Response) => {
       return res.status(403).json({ error: 'Only farmers can view their jobs' });
     }
 
+    const { page = '1', limit = '20' } = req.query;
+
+    // Pagination parameters
+    const pageNum = Math.max(1, parseInt(page as string));
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit as string))); // Max 100 per page
+    const skip = (pageNum - 1) * limitNum;
+
+    const where = { farmerId: req.user.userId };
+
+    // Get total count for pagination metadata
+    const totalCount = await prisma.job.count({ where });
+
     const jobs = await prisma.job.findMany({
-      where: {
-        farmerId: req.user.userId
-      },
+      where,
       include: {
         applications: {
           include: {
@@ -275,10 +304,21 @@ export const getMyJobs = async (req: AuthRequest, res: Response) => {
       },
       orderBy: {
         createdAt: 'desc'
-      }
+      },
+      skip,
+      take: limitNum
     });
 
-    res.json({ jobs });
+    res.json({
+      jobs,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total: totalCount,
+        totalPages: Math.ceil(totalCount / limitNum),
+        hasMore: skip + jobs.length < totalCount
+      }
+    });
   } catch (error: any) {
     console.error('Get my jobs error:', error);
     res.status(500).json({ error: 'Internal server error' });

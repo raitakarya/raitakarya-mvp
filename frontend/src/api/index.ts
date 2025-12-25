@@ -21,7 +21,7 @@ export const authApi = {
 
 // Job API
 export const jobApi = {
-  getJobs: async (params?: { status?: string; jobType?: string; location?: string }) => {
+  getJobs: async (params?: { status?: string; jobType?: string; location?: string; page?: number; limit?: number }) => {
     const response = await apiClient.get('/jobs', { params });
     return response.data;
   },
@@ -46,8 +46,8 @@ export const jobApi = {
     return response.data;
   },
 
-  getMyJobs: async () => {
-    const response = await apiClient.get('/jobs/my-jobs');
+  getMyJobs: async (params?: { page?: number; limit?: number }) => {
+    const response = await apiClient.get('/jobs/my-jobs', { params });
     return response.data;
   },
 };
